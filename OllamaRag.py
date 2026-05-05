@@ -31,7 +31,7 @@ class RAG:
         else:
             return None
 
-    def ingest_document(self, document: Document) -> None:
+    def ingest_document(self, document: Document, vector_store_path: str="not-important") -> None:
         """Add a Document to the vector store, splitting it into chunks."""
         split_docs = self.splitter.split_documents([document])
         
@@ -42,7 +42,7 @@ class RAG:
         
         self.vectorstore.save_local(self.vector_store_path)
 
-    def ingest_text(self, text: str, metadata: Optional[Dict[str, Any]] = None) -> None:
+    def ingest_text(self, text: str, metadata: Optional[Dict[str, Any]] = None, vector_store_path: str="not-important") -> None:
         """Add raw text to the vector store as a Document."""
         doc = Document(page_content=text, metadata=metadata or {})
         self.ingest_document(doc)
